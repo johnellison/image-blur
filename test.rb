@@ -12,6 +12,9 @@ class TestBlur < MiniTest::Test
       [1,0,0,0,0,0,1]
       ])
 
+    # expected = ?
+    # actual = image.show
+    # assert_equal expected, actual
     image.show
   end
 
