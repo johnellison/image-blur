@@ -1,15 +1,12 @@
 require 'minitest/autorun'
-# How do I get factory_girl to work on non-rails project?
-require_relative 'factories'
 require_relative 'image'
-require_relative 'pixel'
 
 class TestBlur < MiniTest::Test
 
   # def test_image_initialize
   # end
 
-  def image_data
+  def build_image
     Image.new([
       [0,0,0,0,0,0,0],
       [0,0,1,0,0,0,0],
@@ -19,7 +16,7 @@ class TestBlur < MiniTest::Test
   end
 
   def test_image_blur
-    image = image_data  
+    image = build_image  
 
     expected = [
       [0,0,1,0,0,0,0],
@@ -28,7 +25,7 @@ class TestBlur < MiniTest::Test
       [0,0,0,0,0,0,0]
       ]
 
-    image.blur
+    image.blur!
 
     assert_equal expected, image.data
   end
@@ -48,7 +45,7 @@ class TestBlur < MiniTest::Test
       [0,0,0,0,0,0,0]
       ]
 
-    image.blur
+    image.blur!
 
     assert_equal expected, image.data
   end
@@ -68,7 +65,7 @@ class TestBlur < MiniTest::Test
       [0,0,0,0,0,1,1]
       ]
 
-    image.blur
+    image.blur!
 
     assert_equal expected, image.data
   end

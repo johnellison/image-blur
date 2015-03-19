@@ -1,4 +1,4 @@
-require_relative 'pixel'
+require 'byebug'
 
 class Image
   attr_accessor :data
@@ -9,44 +9,37 @@ class Image
 
   def output_image
     # Loop over the row of pixels
-    @data.each_with_index do |pixel_row, y_position|
+    @data.each do |pixel_row|
       # Loop over each pixel
-      pixel_row.each_with_index do |pixel_value, x_position|
+      pixel_row.each do |pixel_value|
         # for each item in the initialize array, create a pixel as such:
         # the integer in the array becomes the pixel's value
         print pixel_value
       end
-      puts
+
+      print "/n"
     end
   end
 
-  def blur
+  def blur!
     on_pixels = []
 
-    # Go through the image and create an array of pixels and array of pixels_to_blur
-    @data.each_with_index do |pixel_row, y_position|
-      pixel_row.each_with_index do |pixel_value, x_position|
-        if pixel_value == 1
-          on_pixels << [x_position, y_position]
-        end      
+    # Go through the image and create an array of on_pixels and array of pixels_to_blur
+    @data.each_with_index do |pixel_row, y|
+      pixel_row.each_with_index do |pixel_value, x|
+        on_pixels << [x, y] if pixel_value == 1
       end
     end
-
-    pixels_to_blur = []
 
     on_pixels.each do |position|
       x,y = position
 
-      pixels_to_blur << [(x-1), y] if x != 0
-      pixels_to_blur << [(x+1), y] if x != (self.width - 1)
-      pixels_to_blur << [x, (y-1)] if y != 0
-      pixels_to_blur << [x, (y+1)] if y != (self.height - 1)
+      @data[y][(x-1)] = 1 if x != 0
+      @data[y][(x+1)] = 1 if x != (width - 1)
+      @data[(y-1)][x] = 1 if y != 0
+      @data[(y+1)][x] = 1 if y != (height - 1)
     end
 
-    pixels_to_blur.each do |position|
-      x,y = position
-      @data[y][x] = 1
-    end
 
   end
 
