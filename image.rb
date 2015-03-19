@@ -17,11 +17,11 @@ class Image
         print pixel_value
       end
 
-      print "/n"
+      print "\n"
     end
   end
 
-  def blur!
+  def blur!(n)
     on_pixels = []
 
     # Go through the image and create an array of on_pixels and array of pixels_to_blur
@@ -34,10 +34,34 @@ class Image
     on_pixels.each do |position|
       x,y = position
 
-      @data[y][(x-1)] = 1 if x != 0
-      @data[y][(x+1)] = 1 if x != (width - 1)
-      @data[(y-1)][x] = 1 if y != 0
-      @data[(y+1)][x] = 1 if y != (height - 1)
+      # left
+      @data[y][(x-n)] = 1 if x != 0
+      @data[y][(x-(n-1))] = 1 if x != 0
+
+      # right
+      @data[y][(x+n)] = 1 if x != (width - n)
+      @data[y][(x+(n-1))] = 1 if x != (width - n)
+
+      # top
+      @data[(y-n)][x] = 1 if y != 0
+      @data[(y-(n-1))][x] = 1 if y != 0
+
+      # bottom
+      @data[(y+n)][x] = 1 if y != (height - n)
+      @data[(y+(n-1))][x] = 1 if y != (height - n)
+
+      # top-right
+      @data[y-(n-1)][x+(n-1)] = 1
+
+      # bottom-right
+      @data[y+(n-1)][x+(n-1)] = 1
+
+      # bottom-left
+      @data[y+(n-1)][x-(n-1)] = 1
+
+      # top-left
+      @data[y-(n-1)][x-(n-1)] = 1
+
     end
 
 

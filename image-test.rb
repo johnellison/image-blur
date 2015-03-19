@@ -15,7 +15,23 @@ class TestBlur < MiniTest::Test
       ])
   end
 
-  def test_image_blur
+  def build_big_image
+    Image.new([
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,1,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0]
+      ])
+  end
+
+  # 1px
+  def test_image_blur_1px
     image = build_image  
 
     expected = [
@@ -25,12 +41,12 @@ class TestBlur < MiniTest::Test
       [0,0,0,0,0,0,0]
       ]
 
-    image.blur!
+    image.blur!(1)
 
     assert_equal expected, image.data
   end
 
-  def test_edge_case_top_left_corner
+  def test_edge_case_top_left_corner_1px
     image = Image.new([
       [1,0,0,0,0,0,0],
       [0,0,0,0,0,0,0],
@@ -45,12 +61,12 @@ class TestBlur < MiniTest::Test
       [0,0,0,0,0,0,0]
       ]
 
-    image.blur!
+    image.blur!(1)
 
     assert_equal expected, image.data
   end
 
-  def test_edge_case_bottom_right_corner
+  def test_edge_case_bottom_right_corner_1px
     image = Image.new([
       [0,0,0,0,0,0,0],
       [0,0,0,0,0,0,0],
@@ -65,61 +81,31 @@ class TestBlur < MiniTest::Test
       [0,0,0,0,0,1,1]
       ]
 
-    image.blur!
+    image.blur!(1)
 
     assert_equal expected, image.data
   end
 
-#   def test_image_output
+  # 2px
+  def test_image_blur_2px
+    image = build_big_image  
 
-#     image = image_data
+    expected = [
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,1,0,0,0,0,0],
+      [0,0,0,1,1,1,0,0,0,0],
+      [0,0,1,1,1,1,1,0,0,0],
+      [0,0,0,1,1,1,0,0,0,0],
+      [0,0,0,0,1,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0]
+      ]
 
-#     # expected = ?
-#     # actual = image.show
-#     # assert_equal expected, actual
-#   end
+    image.blur!(2)
 
-#   def test_image_width
-#     image = image_data
+    assert_equal expected, image.data
+  end
 
-#     assert_equal 7, image.width
-#   end
-
-#   def test_image_height
-#     image = Image.new([
-#       [0,0,0,1,0,1,0],
-#       [0,0,1,0,1,0,1],
-#       [0,1,0,0,0,0,0],
-#       [1,0,0,0,0,0,1]
-#       ])
-
-#     assert_equal 4, image.height
-#   end
-
-#   def test_image_which_pixels_to_blur
-#     image = Image.new([
-#       [0,0,0,1,0,1,0],
-#       [0,0,1,0,1,1,1],
-#       [0,1,0,0,0,0,0],
-#       [1,0,0,0,0,0,1]
-#       ]
-
-#     # expected = ?
-#     # actual = image.pixels_to_blur
-#     # assert_equal expected, actual
-#     image.which_pixels_to_blur
-#   end
-
-#   # def test_image_blur
-#   #   image = Image.new([
-#   #     [0,0,0,1,0,1,0],
-#   #     [0,0,1,0,1,1,1],
-#   #     [0,1,0,0,0,0,0],
-#   #     [1,0,0,0,0,0,1]
-#   #     ])
-#   # 
-#   #   exptected = ? 
-#   #   actual = image.blur
-#   #   assert_equal expected, actual
-#   # end
 end
