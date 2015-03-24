@@ -47,9 +47,9 @@ class Image
         # top-right
         @data[y-(i-1)][x+(i-1)] = 1 if (x+(i-1)) <= (width-1) && (y-(i-1)) >= 0
         # bottom-right
-        @data[y+(i-1)][x+(i-1)] = 1 if (x+(i-1)) <= (width-1) && (y+(i-1)) >= 0
+        @data[y+(i-1)][x+(i-1)] = 1 if (x+(i-1)) <= (width-1) && (y+(i-1)) < (height - i)
         # bottom-left
-        @data[y+(i-1)][x-(i-1)] = 1 if (x-(i-1)) >= 0 && (y+(i-1)) >= 0
+        @data[y+(i-1)][x-(i-1)] = 1 if (x-(i-1)) >= 0 && (y+(i-1)) < (height - i)
         # top-left
         @data[y-(i-1)][x-(i-1)] = 1 if (x-(i-1)) >= 0 && (y-(i-1)) >= 0
 
