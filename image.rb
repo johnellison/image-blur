@@ -34,33 +34,27 @@ class Image
     on_pixels.each do |position|
       x,y = position
 
-      # left
-      @data[y][(x-n)] = 1 if x != 0
-      @data[y][(x-(n-1))] = 1 if x != 0
+      i = n
+      while i > 0 
+        # left
+        @data[y][(x-i)] = 1 if x != 0
+        # right
+        @data[y][(x+i)] = 1 if x != (width - n)
+        # top
+        @data[(y-i)][x] = 1 if y != 0
+        # bottom
+        @data[(y+i)][x] = 1 if y != (height - n)
+        # top-right
+        @data[y-(i-1)][x+(i-1)] = 1 if (x + n) > 0 && (y - n) > 0
+        # bottom-right
+        @data[y+(i-1)][x+(i-1)] = 1 if (x + n) > 0 && (y + n) > 0
+        # bottom-left
+        @data[y+(i-1)][x-(i-1)] = 1 if (x - n) > 0 && (y + n) > 0
+        # top-left
+        @data[y-(i-1)][x-(i-1)] = 1 if (x - n) > 0 && (y - n) > 0
 
-      # right
-      @data[y][(x+n)] = 1 if x != (width - n)
-      @data[y][(x+(n-1))] = 1 if x != (width - n)
-
-      # top
-      @data[(y-n)][x] = 1 if y != 0
-      @data[(y-(n-1))][x] = 1 if y != 0
-
-      # bottom
-      @data[(y+n)][x] = 1 if y != (height - n)
-      @data[(y+(n-1))][x] = 1 if y != (height - n)
-
-      # top-right
-      @data[y-(n-1)][x+(n-1)] = 1
-
-      # bottom-right
-      @data[y+(n-1)][x+(n-1)] = 1
-
-      # bottom-left
-      @data[y+(n-1)][x-(n-1)] = 1
-
-      # top-left
-      @data[y-(n-1)][x-(n-1)] = 1
+        i -= 1
+      end
 
     end
 
