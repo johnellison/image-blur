@@ -37,21 +37,21 @@ class Image
       i = n
       while i > 0 
         # left
-        @data[y][(x-i)] = 1 if x != 0
+        @data[y][(x-i)] = 1 if x - i >= 0
         # right
-        @data[y][(x+i)] = 1 if x != (width - n)
+        @data[y][(x+i)] = 1 if x < (width - i)
         # top
-        @data[(y-i)][x] = 1 if y != 0
+        @data[(y-i)][x] = 1 if y-i >= 0
         # bottom
-        @data[(y+i)][x] = 1 if y != (height - n)
+        @data[(y+i)][x] = 1 if y < (height - i)
         # top-right
-        @data[y-(i-1)][x+(i-1)] = 1 if (x + n) > 0 && (y - n) > 0
+        @data[y-(i-1)][x+(i-1)] = 1 if (x+(i-1)) <= (width-1) && (y-(i-1)) >= 0
         # bottom-right
-        @data[y+(i-1)][x+(i-1)] = 1 if (x + n) > 0 && (y + n) > 0
+        @data[y+(i-1)][x+(i-1)] = 1 if (x+(i-1)) <= (width-1) && (y+(i-1)) >= 0
         # bottom-left
-        @data[y+(i-1)][x-(i-1)] = 1 if (x - n) > 0 && (y + n) > 0
+        @data[y+(i-1)][x-(i-1)] = 1 if (x-(i-1)) >= 0 && (y+(i-1)) >= 0
         # top-left
-        @data[y-(i-1)][x-(i-1)] = 1 if (x - n) > 0 && (y - n) > 0
+        @data[y-(i-1)][x-(i-1)] = 1 if (x-(i-1)) >= 0 && (y-(i-1)) >= 0
 
         i -= 1
       end
