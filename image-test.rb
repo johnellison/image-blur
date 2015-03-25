@@ -202,27 +202,26 @@ class TestBlur < MiniTest::Test
     assert_equal expected, image.data
   end
 
-  # # 3px
-  # def test_image_blur_3px
-  #   image = build_big_image  
+  # 3px
+  def test_image_blur_3px
+    image = build_big_image  
 
-  #   expected = [
-  #     [0,0,0,0,0,0,0,0,0,0],
-  #     [0,0,0,0,1,0,0,0,0,0],
-  #     [0,0,0,1,1,1,0,0,0,0],
-  #     [0,0,1,1,1,1,1,0,0,0],
-  #     [0,1,1,1,1,1,1,1,0,0],
-  #     [0,0,1,1,1,1,1,0,0,0],
-  #     [0,0,0,1,1,1,0,0,0,0],
-  #     [0,0,0,0,1,0,0,0,0,0],
-  #     [0,0,0,0,0,0,0,0,0,0],
-  #     [0,0,0,0,0,0,0,0,0,0]
-  #     ]
+    expected = [
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,1,0,0,0,0,0],
+      [0,0,0,1,1,1,0,0,0,0],
+      [0,0,1,1,1,1,1,0,0,0],
+      [0,1,1,1,1,1,1,1,0,0],
+      [0,0,1,1,1,1,1,0,0,0],
+      [0,0,0,1,1,1,0,0,0,0],
+      [0,0,0,0,1,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0]
+      ]
 
-  #   image.blur!(3)
-  #   image.output_image
+    image.blur!(3)
 
-  #   assert_equal expected, image.data
-  # end
+    assert_equal expected, image.data
+  end
 
 end
