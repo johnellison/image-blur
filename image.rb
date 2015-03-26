@@ -21,60 +21,33 @@ class Image
     end
   end
 
-  def blur!(n)
+  def blur!(d)
     on_pixels = []
 
-    # Go through the image and create an array of on_pixels and array of pixels_to_blur
-    @data.each_with_index do |pixel_row, y|
-      pixel_row.each_with_index do |pixel_value, x|
-        on_pixels << [x, y] if pixel_value == 1
-      end
-    end
+    i = 1
+    while i <= d 
 
-    on_pixels.each do |position|
-      x,y = position
-
-      i = n
-      while i > 0 
-        # left
-        @data[y][(x-i)] = 1 if x - i >= 0
-        # right
-        @data[y][(x+i)] = 1 if x < (width - i)
-        # top
-        @data[(y-i)][x] = 1 if y-i >= 0
-        # bottom
-        @data[(y+i)][x] = 1 if y < (height - i)
-        if i > 2
-          # top-right
-          @data[y-(i-(n-1))][x+(i-1)] = 1 if (x+(i-1)) <= (width-1) && (y-(i-1)) >= 0
-          @data[y-(i-1)][x+(i-(n-1))] = 1 if (x+(i-1)) <= (width-1) && (y-(i-1)) >= 0
-          # bottom-right
-          @data[y+(i-(n-1))][x+(i-1)] = 1 if (x+(i-1)) <= (width-1) && (y+(i-1)) < (height - i)
-          @data[y+(i-1)][x+(i-(n-1))] = 1 if (x+(i-1)) <= (width-1) && (y+(i-1)) < (height - i)
-          # bottom-left
-          @data[y+(i-(n-1))][x-(i-1)] = 1 if (x-(i-1)) >= 0 && (y+(i-1)) < (height - i)
-          @data[y+(i-1)][x-(i-(n-1))] = 1 if (x-(i-1)) >= 0 && (y+(i-1)) < (height - i)
-          # top-left
-          @data[y-(i-(n-1))][x-(i-1)] = 1 if (x-(i-1)) >= 0 && (y-(i-1)) >= 0
-          @data[y-(i-1)][x-(i-(n-1))] = 1 if (x-(i-1)) >= 0 && (y-(i-1)) >= 0
-
-        else
-          # top-right
-          @data[y-(i-1)][x+(i-1)] = 1 if (x+(i-1)) <= (width-1) && (y-(i-1)) >= 0
-          # bottom-right
-          @data[y+(i-1)][x+(i-1)] = 1 if (x+(i-1)) <= (width-1) && (y+(i-1)) < (height - i)
-          # bottom-left
-          @data[y+(i-1)][x-(i-1)] = 1 if (x-(i-1)) >= 0 && (y+(i-1)) < (height - i)
-          # top-left
-          @data[y-(i-1)][x-(i-1)] = 1 if (x-(i-1)) >= 0 && (y-(i-1)) >= 0
+      @data.each_with_index do |pixel_row, y|
+        pixel_row.each_with_index do |pixel_value, x|
+          on_pixels << [x, y] if pixel_value == 1
         end
-
-        i -= 1
       end
 
+      on_pixels.each do |position|
+        x,y = position
+
+        # left
+        @data[y][x-1] = 1 if x-1 >= 0
+        # right
+        @data[y][x+1] = 1 if x+1 <= (width - 1)
+        # top
+        @data[y-1][x] = 1 if y-1 >= 0
+        # bottom
+        @data[y+1][x] = 1 if y+1 <= (height - 1)
+      end
+
+      i += 1
     end
-
-
   end
 
   def width
